@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar hideBackButton color="#ffffff">
+    <button style="padding-bottom: 6px;margin-right:0px;" float-left menuToggle ion-button icon-only light>
+      <img style="height:15px ;width:20px" src="assets/imgs/menu.png">
+
+
+    </button>
+    <ion-title>
+      <img src="assets/imgs/logo.png" height="34px" width="auto" style="padding-top: 4px;;align-content: left">
+    </ion-title>
+    <!--ion-buttons end>
+
+      <button ion-button style="padding-right:19px" (click)="close()">
+        <img style="height:20px ;width:20px" src="assets/imgs/search.png">
+      </button>
+    </ion-buttons-->
+  </ion-navbar>
+
+</ion-header>
+<ion-content class="otp">
+  <img style="align-content: center" src="assets/imgs/key.png">
+
+  <h5 style="line-height: 1;">
+    Мы уже<br> знакомы?
+  </h5>
+  <h6>
+    Введите ваш номер и мы узнаем вас
+  </h6>
+
+
+
+ 
+
+
+</ion-content>
+<ion-footer no-border>
+   <div *ngIf="!values.otpsent" padding>
+
+
+    <ion-row class="login_content">
+
+
+     
+        <ion-item style="background:transparent;border: 1px solid #d9d9d9;
+              border-top-left-radius:8px;border-bottom-left-radius:8px;background:#ffffff;width:65%;height:54px" no-lines>
+          <ion-label stacked style=" font-size:12px; color:grey; margin-bottom:1px;padding-top:2px">введите номер телефона</ion-label>
+          <ion-input float-right style="
+               background:#ffffff;text-align:right;margin-top:-3px" #phoneNumber class="input" type="tel" placeholder="      999) 000-00-00" [brmasker]="{mask:'000) 000-00-00', len:15}" >
+          </ion-input>
+
+        </ion-item>
+        <button float-left full class="apply" block type="submit" [disabled]='disableSubmit' (click)="registerPhone()">
+          ВОЙТИ
+        </button>
+      
+     
+    </ion-row>
+
+  </div>
+  <div *ngIf="values.otpsent" padding>
+
+
+    <ion-row class="login_content1">
+
+
+     
+        <ion-item style="background:transparent;border: 1px solid #d9d9d9;
+                  border-top-left-radius:8px;border-bottom-left-radius:8px;
+                 background:#ffffff;height:50px;text-indent: 4px;width:65%;height:54px" no-lines>
+          <ion-label stacked style=" font-size:12px; color:grey; margin-bottom:-3px;padding-top:3px">введите код из смс
+          </ion-label>
+          <ion-input   #code class="input" type="tel" placeholder="123456" maxlength="6"></ion-input>
+          
+
+        </ion-item>
+        <button full float-left class="apply" block type="submit" [disabled]='disableSubmit1' (click)="verify()">
+          ДАЛЕЕ
+        </button>
+     
+      
+    </ion-row>
+
+  </div>
+</ion-footer>

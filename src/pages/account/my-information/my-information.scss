@@ -1,0 +1,45 @@
+page-my-information{
+  background:#f5f6fa!important;
+    .empty {
+      background:#f5f6fa;
+        margin-top: 30px;
+        h4 {
+            font-size: 42px;;
+            margin: 30px 0;
+            font-weight: 900;
+          color: #555555;
+        }
+        h5 {
+            font-size: 16px!important;
+           color: #191919;
+            margin:30px 30px 30px 30px;
+            text-align: center;
+        }
+        img {
+           width:50%;
+            height: 50%;
+            margin: auto;
+            display: block;
+        }
+        .button {
+            border-radius: 5px;
+            margin: auto;
+            
+        }
+    }
+    ion-footer{
+      margin-bottom:24px;
+    }
+    .link{
+      text-decoration: underline; 
+      font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: #8d8c8c;
+  margin-left:16px;
+  
+    }
+}

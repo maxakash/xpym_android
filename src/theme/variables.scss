@@ -1,88 +1,115 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
+
+
 
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
 
-// The app direction is used to include
-// rtl styles in your app. For more info, please see:
-// http://ionicframework.com/docs/theming/rtl-support/
-$app-direction: ltr;
 
 
 @import "ionic.globals";
 
+$text-color:        #000;
+$background-color:  white;
+$loading-md-box-shadow: white;
+$loading-md-background: transparent;
+$toolbar-ios-title-text-align:center;
+$action-sheet-md-title-color: #191919;
+$action-sheet-md-background:#f5f6fa;
+$action-sheet-wp-box-shadow:0 -2px 6px 0 ;
+$action-sheet-md-title-font-size: 22px;
+$action-sheet-md-title-padding: 15px 0 15px 15px;
+$action-sheet-md-button-min-height:40px;
+$action-sheet-md-button-text-color:grey;
+$action-sheet-md-button-padding: 0 0 0 12px;
+//$action-sheet-md-icon-font-size:4.0rem;
+$action-sheet-md-icon-margin: 0px 15px 3px 0;
+$fab-md-text-color:black;
+$toast-md-title-padding:auto;
+$toast-md-background:transparent;
+$toast-md-title-color:white;
+$fab-md-background-color:#F49C3F;
+$radio-md-color-on:#44c372;
+$alert-md-title-font-size:20px;
+$alert-md-sub-title-font-size:16px;
+//$refresher-height:-10px!important;
+$refresher-icon-font-size:20px;
+$refresher-text-font-size:10px;
+$refresher-border-color:none;
 
-// Shared Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass variables found in Ionic's source scss files.
-// To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+.searchbar-search-icon {
+  display:none;
+}
+.searchbar-clear-icon {
+  background-image: url("../assets/imgs/searchclose.png")!important;
+}
+
+.searchbar{
+  margin-left:-8px;
+  margin-top:1px;
+  height:38px;
+  
+ // margin-right:-5px;
+  width:104%;
+  // border: 0 !important;
+   
+}
+.searchbar-input {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+//$searchbar-md-input-box-shadow: 0px 0px 0px 1px #FF4500;
 
 
-
-
-// Named Color Variables
-// --------------------------------------------------
-// Named colors makes it easy to reuse colors on various components.
-// It's highly recommended to change the default colors
-// to match your app's branding. Ionic uses a Sass map of
-// colors so you can add, rename and remove colors as needed.
-// The "primary" color is the only required color in the map.
+$appcolor: #ffffff;
 
 $colors: (
-  primary:    #488aff,
+  primary:    black,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #1e5be1,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #1e5be1,
+  shadow:     #bf4080,
+  shadowlite: #f9ebf2,
+  appcolor: #ffffff,
+  navcolor:transparent,
+
+
+  //color options
+  
+
 );
 
+$shadowlite: #f9ebf2;
+$shadow: #bf4080;
+  
+  //menu background color
+  $menu-background: rgba(255, 255, 255, 0);
 
-// App iOS Variables
-// --------------------------------------------------
-// iOS only Sass variables can go here
+ //customise header color here
+  $header:     #2664f9;
 
+  //customise button color here
+  $button-color: #44c372;
 
+  //customise toggle-button color here
+  $toggle-button-color: #25242c;
 
+  //customise text color here
+  $side-heading-color:  #25242c;
 
-// App Material Design Variables
-// --------------------------------------------------
-// Material Design only Sass variables can go here
-
-
-
-
-// App Windows Variables
-// --------------------------------------------------
-// Windows only Sass variables can go here
-
-
-
-
-// App Theme
-// --------------------------------------------------
-// Ionic apps can have different themes applied, which can
-// then be future customized. This import comes last
-// so that the above variables are used and Ionic's
-// default are overridden.
+  $searchbar-ios-input-placeholder-color: #999;
+  $searchbar-ios-input-search-icon-color: #999;
+  $searchbar-md-input-placeholder-color: #999;
+  $searchbar-md-input-search-icon-color : #999;
 
 @import "ionic.theme.default";
 
 
-// Ionicons
-// --------------------------------------------------
-// The premium icon font for Ionic. For more info, please see:
-// http://ionicframework.com/docs/ionicons/
+$ionicons-font-path: "../assets/fonts";
+@import "ionicons";
 
-@import "ionic.ionicons";
-
-
-// Fonts
-// --------------------------------------------------
-
-@import "roboto";
-@import "noto-sans";
+ 

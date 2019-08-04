@@ -1,0 +1,119 @@
+<ion-header *ngIf="showhead">
+
+    <ion-navbar  color="appcolor">
+
+        <ion-buttons end>
+
+
+            <button ion-button icon-only (click)="close()">
+                <ion-icon style="background:#000000;padding-bottom:4px;" name="close">
+                </ion-icon>
+
+            </button> </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content (ionScroll)="onScroll($event)" fullscreen>
+
+    <div *ngIf="!product" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+
+    <div *ngIf="product">
+       
+        <div class="product-info"> 
+            <ion-slides  pager="true" >
+                <ion-slide *ngFor="let item of product.images">
+                    <img style="height:auto;width:100%" src="{{item.src}}" >
+                </ion-slide>
+            </ion-slides>
+           
+           
+               
+            
+
+            <h5 class="name">
+                {{product.name}}
+            </h5>
+        <div  *ngIf="!showadd" style="position:absolute;top:0px;left:10px; z-index: 1;">
+        <h2 style="font-size: 18px;color: #444444;" *ngIf="!product.sale_price">
+            {{product.price }}&nbsp;₽/шт </h2>
+        <h2  style="font-size: 18px;color: #444444;" *ngIf="product.sale_price">
+            {{product.price }}&nbsp;₽/шт </h2></div>
+
+
+
+        </div>
+
+        <div (click)="close()"  *ngIf="!showhead" style="position:absolute;top:15px;right:15px; z-index: 1;"><img  height="27px"src="assets/imgs/reject.png"></div>
+
+
+        <div no-lines style="background-color:white;margin-bottom:55px!important ">
+
+            <ion-item text-wrap no-lines>
+                <p class="productdetail" [innerHTML]="product.description"> </p>
+            </ion-item> 
+        </div>
+
+
+    </div>
+
+
+
+
+</ion-content>
+<ion-footer *ngIf="product"  style="background:transparent">
+    <ion-row   class="price">
+        <ion-col *ngIf="!values?.cart[product.id] && !showspinner" style="margin-top:16px;" col-6>
+
+            <h2 class="price-regular " *ngIf="!product.sale_price">
+                {{product.price }}&nbsp;₽ </h2>
+            <h2 class="price-sale" *ngIf="product.sale_price">
+                <span>{{product.sale_price }}&nbsp;₽</span><del class="price-delete">
+                    {{product.regular_price}}&nbsp;₽</del></h2>
+
+
+        </ion-col>
+        <ion-col *ngIf="!values?.cart[product.id] && showspinner" style="margin-top:16px;" col-6>
+        
+            <h2 class="price-regular " *ngIf="!product.sale_price">
+                {{product.price}}&nbsp;₽ </h2>
+            <h2 class="price-sale" *ngIf="product.sale_price">
+                <span>{{product.sale_price}}&nbsp;₽</span><del class="price-delete">
+                    {{product.regular_price }}&nbsp;₽</del></h2>
+        
+        
+        </ion-col>
+        <ion-col *ngIf="values?.cart[product.id]"  style="margin-top:10px;" col-6>
+        <h2 class="price-regular " *ngIf="!product.sale_price">
+            {{values?.cart[product.id]*product.price }}&nbsp;₽ </h2>
+        <h2 class="price-sale " *ngIf="product.sale_price">
+            <span>{{values?.cart[product.id]*product.price }}&nbsp;₽</span><del class="price-delete">
+                {{values?.cart[product.id]*product.regular_price}}&nbsp;₽</del> </h2></ion-col>
+        
+        <ion-col *ngIf="!values?.cart[product.id]" style="margin-top:5px;margin-bottom:-15px" col-6>
+            <img float-right (click)="addToCart1(product.id,product.stock_quantity)" style="height:60px;width:auto;margin:0 0 7px 0;"
+                src="assets/imgs/add.png">
+        
+         
+        
+        </ion-col>
+        <ion-col  *ngIf="values?.cart[product.id]  " style="margin-top:2px;margin-bottom:-5px;margin-left:0px;text-align:right;padding-right:18px" col-6>
+        
+        
+            <div (click)="delete(product.id,values?.cart[product.id])" class="value-button"><img src="assets/imgs/cartsubstract.png"></div><span
+              *ngIf="values?.cart[product.id]>=10"  style="font-size:22px;margin:0px 6px 0 6px;padding-top:15px;">{{values?.cart[product.id]}}</span>
+                <span
+                *ngIf="9>=values?.cart[product.id]" style="font-size:22px;margin:0px 10.4px 0 10.4px;padding-top:15px;">{{values?.cart[product.id]}}</span>
+            <div (click)="addToCart(product.id,product.stock_quantity,product.sale_price)" class="value-button"><img src="assets/imgs/cartadd.png"></div>
+        
+  
+        </ion-col>
+       
+        
+    </ion-row>
+    <div (click)=" getCart()" *ngIf="values.cart[product.id]" style="width:100%;height: 48px;background-color: #ff820d;color: #ffffff;font-size: 20px;text-align:center;padding-top:10px;">ПЕРЕЙТИ В КОРЗИНУ</div>
+    
+    
+</ion-footer>

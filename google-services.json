@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "1011164521015",
+    "firebase_url": "https://xpym-49667.firebaseio.com",
+    "project_id": "xpym-49667",
+    "storage_bucket": "xpym-49667.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011164521015:android:5c134a796ed83969",
+        "android_client_info": {
+          "package_name": "app.xpym.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDck8pHZILzeUsmprOmHXoA62hWsv5TOQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011164521015-ed28co8ojao4q8eit0c93s910j7jmcp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

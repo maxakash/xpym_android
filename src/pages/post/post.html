@@ -1,0 +1,22 @@
+<ion-header >
+    <ion-navbar hideBackButton color="appcolor">
+  
+        <button (click)="close()" style="margin-top: 3px;margin-left:10px;background: #ffffff;box-shadow: none" float-left
+            ion-button icon-only light>
+            <img style="height:auto ;width:19px;background:transparent" src="assets/imgs/bacbutton.png">
+    
+    
+        </button>
+                <ion-title text-wrap style="margin-top: 5px"text-left *ngIf="post?.post_title">{{post.post_title}} </ion-title>
+
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="post" padding>
+    <ion-spinner *ngIf="!post" name="dots"> </ion-spinner>
+    <div *ngIf="post">
+        <div [innerHTML]="post.post_content"></div>
+    </div>
+</ion-content>

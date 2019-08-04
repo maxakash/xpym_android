@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar hideBackButton color="appcolor">
+
+        <button *ngIf="!values.showbackbutton" style="padding-bottom: 6px;margin-right:0px;" float-left menuToggle ion-button icon-only light>
+            <img  style="height:15px ;width:20px" src="assets/imgs/menu.png">
+
+
+        </button>
+        <button *ngIf="values.showbackbutton" (click)="close()"
+            style="margin-top: 2px;margin-left:10px;margin-right:10px;background: #ffffff;box-shadow: none" float-left
+            ion-button icon-only light>
+            <img style="height:auto ;width:19px;background:transparent" src="assets/imgs/bacbutton.png">
+        
+        
+        </button>
+
+
+        <ion-title>
+            <img src="assets/imgs/logo.png" height="34px" width="auto" style="padding-top: 6px;margin-left:-5px">
+        </ion-title>
+
+        
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+    <div *ngIf="!marker" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+    <div style="height:100%;width:auto" id="map_canvas"></div>
+</ion-content>
+<ion-footer no-border transparent>
+
+    
+    <div *ngIf="showcorrectadd && marker" style="padding-left:16px" class="div1">
+        <h6 style="font-size: 16px;color: #a6a6a6;text-align: left;">Ваш адрес:</h6>
+        <h5 style="font-size: 22px; color: #2a231a;text-align: left;margin-right:10px">{{address}}</h5>
+        <h6 style="font-size: 16px;color: #a6a6a6;text-align: left;">Номер квартиры:</h6>
+        <ion-item style="background:transparent;margin-left:-8px;z-index:1" no-lines>
+            <ion-input float-left style="border: 1px solid #d9d9d9;
+              border-radius:8px;
+               background:#ffffff;margin-right:0px;"   [(ngModel)]="apartment"  class="input" type="tel"
+                placeholder="Введите номер вашей квартиры">
+            </ion-input>
+
+        </ion-item>
+        <div (click)="saveaddress()" style="text-align: center;height:48px;margin: 10px 16px 20px 0;border-radius: 8px;background-color: #44c372;
+          ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:12px;text-align:center">ОБНОВИТЬ</h5>
+        </div>
+
+
+    </div>
+    <div *ngIf="showincorrectadd" style="padding-left:16px" class="div2">
+        <h6 style="font-size: 16px;color: #a6a6a6;text-align: left;">Ваш адрес:</h6>
+        <h5 style="font-size: 22px; color: #2a231a;text-align: left;">{{address}}</h5>
+        <h6 style="font-size: 16px;color: #a6a6a6;text-align: left;padding-top:40px;padding-right:38px">Мы планируем
+            постоянно открываться в новых районах</h6>
+
+
+
+
+    </div>
+
+
+</ion-footer>

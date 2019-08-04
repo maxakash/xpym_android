@@ -1,0 +1,93 @@
+<ion-header no-border class="search-header">
+    <ion-navbar hideBackButton color="appcolor">
+       
+        <ion-searchbar animated #searchbar [(ngModel)]="myInput" [showCancelButton]="false" (window:keydown)="onKey($event)" (change)="onInput($event)"
+            (ionCancel)="onCancel($event)" (ionClear)="onCancel($event)" placeholder="{{'Search for Products' | translate}}"> </ion-searchbar>
+    </ion-navbar>
+</ion-header>
+<ion-content  #contentRef (ionScroll)="scrollingFun($event)">
+    <div *ngIf="loading" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+  
+    
+    <div *ngIf="products" class="products-listing">
+        <div *ngIf="!products.length && !loading && hidenoproduct" class="no-products">
+            <h2>{{"No matching products" | translate}}</h2>
+        </div>
+        <div *ngIf="products.length && !loading">
+          
+            <div >
+                <div class="grid">
+                    <!---ion-row class="row unlimited-items">
+                        <ion-col class="col" *ngFor="let item of products">
+                            <ion-card>
+                                <div class="stock">
+                                    <img style="height:200px;width:100%"tappable src="{{item.images[0].src}}" (click)="getProduct(item.id)" [ngClass]="{opacity: !item.in_stock}">
+                                   
+                                    <div *ngIf="item.stock_status=='instock' && item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'"
+                                        class="offer-tag" class="offer-tag">
+                                        <button ion-button small text-wrap>
+                                            <span text-wrap>{{(item.regular_price - item.sale_price) / item.regular_price*100 | number :
+                                                '1.0-0'}}%<br/>{{"off" | translate}}</span>
+                                        </button>
+                                    </div>
+                                </div> 
+                                <div tappable (click)="getProduct(item.id)" class="card-name">
+                                    <ion-label *ngIf="item.title">{{item.title}} </ion-label>
+                                    <ion-label *ngIf="item.name">{{item.name}} </ion-label>
+                                </div>
+                                <ion-label style="margin-bottom:2px;margin-left: 4px;">
+                                    <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:symbol:'1.0'}}
+                                    </span>
+                                    <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.0'}}
+                                    </span>
+                                    <span class="price-delete" *ngIf="item.sale_price">
+                                        <del>{{1*item.regular_price | currency:values.currency:symbol:'1.0'}}
+                                        </del>
+                                    </span>
+                                </ion-label>
+                                
+                            </ion-card>
+                        </ion-col>
+                    </ion-row-->
+                    <ion-row class="row unlimited-items">
+                        <ion-col col-6 class="col" *ngFor="let item of products ">
+                            <ion-card tappable (click)="getProduct(item.id)">
+                                <img style="height:200px;width:100%;" src="{{item.images[0].src}}">
+                                <h5 *ngIf="item.name" class="card-name">{{item.name}}
+                                </h5>
+                    
+                                <ion-label float-left style="padding-bottom:5px"> <span class="price-regular"
+                                        *ngIf="!item.sale_price">{{ 1*item.price | currency:values.currency:symbol:'1.0'}}
+                                    </span> <span class="price-regular"
+                                        *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.0'}}
+                                    </span> <span class="price-delete" *ngIf="item.sale_price">
+                                        <del>{{1*item.regular_price | currency:values.currency:symbol:'1.0'}}
+                                        </del>
+                                    </span>
+                                    <span
+                                        *ngIf="item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'"
+                                        class="offer-price">{{(item.regular_price - item.sale_price) / item.regular_price*100 |
+                                                                                number : '1.0-0'}}% {{"OFF" | translate}}</span>
+                                </ion-label>
+                    
+                    
+                            </ion-card>
+                    
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <br> </div>
+        </div>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="has_more_items">
+            <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="{{'Loading more items..' | translate}}"> </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
+
+   
+    <br>
+    <br>
+</ion-content>

@@ -1,0 +1,102 @@
+<ion-header>
+    <ion-navbar hideBackButton color="appcolor">
+        <button (click)="close()" style="margin-top: 2px;margin-left:10px;background: #ffffff;box-shadow: none"
+            float-left ion-button icon-only light>
+            <img style="height:auto ;width:19px;background:transparent" src="assets/imgs/bacbutton.png">
+
+
+        </button>
+  <h5 *ngIf="orderDetails" style="font-size: 24px;color: #ff820d;margin-top:6px;">
+               &nbsp;&nbsp; Заказ №&nbsp;{{orderDetails.id}}
+  </h5>
+
+    </ion-navbar>
+</ion-header>
+<ion-content style=" background-color: #f5f6fa;">
+
+    <div *ngIf="!orderDetails" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+
+    <div *ngIf="orderDetails && product" class="order_detail_wrapper">
+        <div class="list_top1">
+
+            <h5 *ngIf="totalquantity==2 || totalquantity==3 || totalquantity==4 || totalquantity==22 || totalquantity==32 || totalquantity==23 || totalquantity==33 || totalquantity==24 ">{{totalquantity}}&nbsp;товара,&nbsp;{{1*orderDetails.total}}&nbsp;₽</h5>
+            <h5 *ngIf="totalquantity==1 || totalquantity==21 || totalquantity==31 || totalquantity==41 ">{{totalquantity}}&nbsp;товар,&nbsp;{{1*orderDetails.total}}&nbsp;₽</h5>
+
+            <h5 *ngIf="totalquantity==11 || totalquantity==12 || totalquantity==13 || totalquantity==5 || totalquantity==6 || totalquantity==7 || totalquantity==8 || totalquantity==9 || totalquantity==10 || totalquantity==14 || totalquantity==15 || totalquantity==16 || totalquantity==17 || totalquantity==18 || totalquantity==19 || totalquantity==20  || totalquantity==24 || totalquantity==25 || totalquantity==26 || totalquantity==27 || totalquantity==28 || totalquantity==29 || totalquantity==30 ">{{totalquantity}}&nbsp;товаров,&nbsp;{{1*orderDetails.total}}&nbsp;₽</h5>
+
+            <h4 *ngIf="orderDetails.payment_method=='cod' || orderDetails.payment_method=='COD'">Оплата наличными</h4>
+            <h4 *ngIf="orderDetails.payment_method=='tinkoff'">Оплата картой</h4>
+            <h6>{{orderDetails.shipping.address_2}},&nbsp;кв. {{orderDetails.shipping.address_1}}</h6>
+
+
+        </div>
+
+        <div class="order_detail_content">
+
+            <div *ngFor="let item of orderDetails.line_items" class="seller_detail">
+                <ion-item-divider>
+                    <ion-row>
+                        <ion-col col-3 *ngIf="product">
+                            <img src="{{images[item.product_id]}}">
+                        </ion-col>
+
+                        <ion-col style="margin-left:-10px" col-9>
+                            <h5>{{item.name}}
+                            </h5>
+
+                            <h6 style="margin-left:-10px"><span clas="quantity">{{item.quantity}}&nbsp;шт.</span><span
+                                    *ngIf="sale_price[item.product_id]"
+                                   style="color:#ff6b6e"  class="price">{{item.quantity * sale_price[item.product_id]}}&nbsp;₽</span>
+                                <del *ngIf="sale_price[item.product_id]" style="color:#c2c3c5"
+                                    class="price">{{item.quantity * reg_price[item.product_id]}}&nbsp;₽</del>
+                                <span *ngIf="!sale_price[item.product_id]" style="color:#444444"
+                                    class="price">{{item.quantity * reg_price[item.product_id]}}&nbsp;₽</span> </h6>
+
+                        </ion-col>
+
+                    </ion-row>
+
+                </ion-item-divider>
+
+            </div>
+            <div class="total">
+                <ion-row>
+                    <ion-col>
+                        <h5 float-left
+                            style="color: #2a231a;font-size: 18px;padding-left:15px;padding-top:5px;font-weight: normal;">
+                            Итого:</h5>
+
+                    </ion-col>
+                    <ion-col>
+                        <h5 *ngIf="discounttotal1!=0" float-right style="color:#ff6b6e;font-size: 24px;padding-right:12px;font-weight: bold;">
+                            {{orderDetails.total}}&nbsp;₽
+                        </h5>
+                        <del *ngIf="discounttotal!=orderDetails.total"float-right style="color: #c2c3c5;font-size: 20px;padding-right:12px; padding-top:19px;">
+                            {{discounttotal}}&nbsp;₽
+                        </del>
+                       
+                        <h5 *ngIf="discounttotal1==0"float-right style="color:#2a231a;font-size: 24px;padding-right:12px;font-weight: bold;">
+                            {{orderDetails.total}}&nbsp;₽
+                        </h5>
+                        
+
+
+
+                    </ion-col>
+                </ion-row>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</ion-content>

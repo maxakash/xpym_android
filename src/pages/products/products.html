@@ -1,0 +1,150 @@
+<ion-content style="background-color: #f5f6fa;">
+
+<div *ngIf="!products" class="homenone" style="text-align:center">
+    <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+</div>
+    <div *ngIf="products" style="background-color: #f5f6fa;" >
+
+        <ion-row style="margin-top:12px">
+            <ion-col col-5 class="categoryname">
+                {{categoryName}}
+            </ion-col>
+            <ion-col *ngIf="values.count!=0" class="cartbutton" col-7>
+                <div (click)="getCart()" class="box">
+                    <div style="padding-top:8px;padding-left:18px">
+                        <span
+                            style="font-size: 14px;color: #ffffff;letter-spacing: 0.5px;padding-right:5px;text-transform: capitalize;font-weight: bold;text-transform: none">
+                            В КОРЗИНУ</span>
+                        <div
+                            style="border-radius: 11.1px;background-color: #41bc6e;font-size: 12px; color: #ffffff;text-align: center;display: inline;padding:2px 10px 2px 10px">
+                            {{values.count}}</div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+
+        <div *ngIf="products?.length!=0" class="scroll-products">
+
+
+            <a class="a" [ngClass]="{'a1': values?.cart[item.id]}" *ngFor="let item of products">
+
+
+                        <div *ngIf="values?.cart[item.id]" style="padding-left:8px;margin-top:-8px; z-index: 1;">
+                            <h2 style="font-size: 12px;color: #2a231a;opacity: 0.6;" *ngIf="!item.sale_price">
+                                {{1*item.regular_price}}&nbsp;₽/шт </h2>
+                            <h2 style="font-size: 12px;color: #2a231a;opacity: 0.6;" *ngIf="item.sale_price">
+                                {{1*item.sale_price }}&nbsp;₽/шт </h2>
+                        </div>
+                        <img *ngIf="item.images[0]?.src && !values?.cart[item.id]" style=" border-top-left-radius: 14px;border-top-right-radius: 14px;"
+                             src="{{item.images[0]?.src}}" (click)="getProduct(item.id)" />
+                        <img *ngIf="item.images[0]?.src && values?.cart[item.id]"
+                            style=" border-top-left-radius: 14px;border-top-right-radius: 14px;height:90px;width:auto;padding:2px;margin-left:auto;margin-right:auto;margin-top:-14px;display: block;"
+                             src="{{item.images[0]?.src}}" (click)="getProduct(item.id)" />
+                            <img *ngIf="!item.images[0] "
+                                style=" border-top-left-radius: 14px;border-top-right-radius: 14px"
+                                src="assets/imgs/placeholder.jpg" (click)="getProduct(item.id)" />
+                        <h5 class="name" *ngIf="item.name && !values?.cart[item.id]">{{item.name}} </h5>
+                        <h5 class="name1" *ngIf="item.name && values?.cart[item.id]">{{item.name}} </h5>
+                        
+                        <ion-label>
+                           <span class="price-sale" *ngIf="item.sale_price && !values?.cart[item.id]">{{1*item.sale_price}}&nbsp;₽</span>
+
+                            <del  *ngIf=" item.sale_price && !values?.cart[item.id]">{{1*item.regular_price }}&nbsp;₽
+                            </del>
+                            <span class="price-regular" *ngIf=" !item.sale_price && !values?.cart[item.id]">{{1*item.regular_price }}&nbsp;₽
+                            </span>
+                            <span class="price-regular1" *ngIf="!item.sale_price && values?.cart[item.id]">{{values?.cart[item.id]*item.regular_price }}&nbsp;₽
+                            </span>
+                            <span class="price-sale1" *ngIf="item.sale_price && values?.cart[item.id]">{{values?.cart[item.id]*item.sale_price }}&nbsp;₽
+                            </span>
+                        <del *ngIf="item.sale_price && values?.cart[item.id]">{{values?.cart[item.id]*item.regular_price}}&nbsp;₽</del>
+
+                        
+                        
+                        </ion-label>
+                        <img *ngIf="!values?.cart[item.id]" float-right (click)="addToCart1(item.id,item.stock_quantity)"
+                            style="height:50px;width:auto;margin-top:-25px;margin-right:-6px;margin-bottom:5px;" src="assets/imgs/add.png">
+                        <div *ngIf="values?.cart[item.id]" style="display:block;margin-left:auto;margin-right:auto">
+                            <div class="button1">
+                                <div *ngIf="values?.cart[item.id]!=0" class="Rectangle">
+                                    <div (click)="delete(item.id,values.cart[item.id])" *ngIf="values?.cart[item.id]" style="margin-left:9px"
+                                        class="value-button"><img src="assets/imgs/cartsubstract.png">
+                                    </div><span *ngIf="values?.cart[item.id]>=10"
+                                        style="font-size:20px;margin:4px 4px 2px 4px!important;padding-top:-5px;text-align: center;">{{values.cart[item.id]}}</span>
+                                    <span *ngIf="9>=values?.cart[item.id]"
+                                        style="font-size:20px;margin:-4px 8px 2px 8px!important;padding-top:-5px;text-align: center;">{{values.cart[item.id]}}</span>
+                                    <div (click)="addToCart(item.id,item.stock_quantity,item.sale_price)" *ngIf="values?.cart[item.id]" class="value-button">
+                                        <img src="assets/imgs/cartadd.png"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+            </a>
+            <div *ngIf="!products">
+                <a *ngFor="let number of [0,1,2]"></a>
+            </div>
+        </div>
+        <div style="height: 230px"*ngIf="products?.length==0">
+        <h5 
+            style="font-size: 22px;color: #2a231a;text-align: center;font-weight:normal;padding-top:90px">нет товаров</h5>
+</div> 
+
+         
+           
+<ion-scroll *ngIf="showarray1" class="scroll-products1" style="width:100%;height:30px" scrollX="true">
+
+
+    <a *ngFor="let filterType of attributes">
+
+        <h5 class="name" (click)="attributeterms(filterType)"
+            [ngClass]="{'selected-option': filterType.name==showselectedatt}" *ngIf="filterType">
+            {{filterType.name}} </h5>
+
+    </a>
+
+
+</ion-scroll>
+        <ion-scroll *ngIf="showarray2" class="scroll-products1" style="width:100%;height:30px" scrollX="true">
+  
+                <a *ngFor="let filterType of newattributes">
+            
+                    <h5 class="name" (click)="applyfilter(filterType)"
+                        [ngClass]="{'selected-option': filterType.name==showselectedatt }" *ngIf="filterType">
+                        {{filterType.name}} </h5>
+            
+                </a>
+            </ion-scroll>
+        <ion-scroll *ngIf="showarray3" class="scroll-products1" style="width:100%;height:30px" scrollX="true">
+                <a *ngFor="let filterType of attributes1">
+            
+                    <h5 class="name" (click)="applyfilter1(filterType)"
+                        [ngClass]="{'selected-option': filterType.name==showselectedatt }"
+                        *ngIf="filterType">
+                        {{filterType.name}} </h5>
+            
+                </a>
+        </ion-scroll>
+           
+            
+
+
+
+
+       
+
+
+
+
+
+
+
+    </div>
+
+
+</ion-content>

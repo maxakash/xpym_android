@@ -1,19 +1,99 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false">
+</ion-nav>
+<ion-menu [content]="content" persistent="true" side="left" type="overlay">
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
-  </ion-content>
+    <ion-content style="background: #f5f6fa;">
+        <div #myitem [hidden]="!service.loginStatus" style="background: #f5f6fa;">
 
+        </div>
+        <div #myitem1 [hidden]="service.loginStatus" style="background: #f5f6fa;">
+
+        </div>
+
+        <ion-item (click)="home()" style="border-bottom:0.1px solid lightgrey;height:64px" no-lines tappable menuClose>
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img *ngIf="values.homepage" style="  height: 22px;width: auto;border-radius:1px"
+                    src="assets/imgs/categoryhighlight.png">
+                <img *ngIf="!values.homepage" style="  height: 22px;width: auto;border-radius:1px"
+                    src="assets/imgs/category.png">
+
+            </ion-avatar>
+            <h3 *ngIf="values.homepage" style="color:#ff9c15;font-size:14px">Товары</h3>
+            <h3 *ngIf="!values.homepage">Товары</h3>
+
+        </ion-item>
+        <!--ion-item no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable menuClose>
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/searchnav.png">
+
+            </ion-avatar>
+            <h3>Поиск</h3>
+
+        </ion-item-->
+        <ion-item no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable menuClose
+            (click)="support()">
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img *ngIf="!values.helppage" style=" height:22px;width: auto;border-radius:1px "
+                    src="assets/imgs/chat.png">
+                <img *ngIf="values.helppage" style=" height:22px;width: auto;border-radius:1px "
+                    src="assets/imgs/chathighlight.png">
+
+
+            </ion-avatar>
+            <h3 *ngIf="values.helppage" style="color:#ff9c15;font-size:14px">Помощь</h3>
+            <h3 *ngIf="!values.helppage">Помощь</h3>
+
+        </ion-item>
+        <ion-item *ngIf="service.loginStatus" no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable
+            menuClose (click)=" myorders()">
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img *ngIf="!values.orderpage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/cart.png">
+                <img *ngIf="values.orderpage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/carthighlight.png">
+
+
+            </ion-avatar>
+            <h3 *ngIf="values.orderpage" style="color:#ff9c15;font-size:14px">Мои заказы</h3>
+            <h3 *ngIf="!values.orderpage">Мои заказы</h3>
+
+        </ion-item>
+        <ion-item *ngIf="service.loginStatus" no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable
+            menuClose (click)="editaddress()">
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img *ngIf="!values.addresspage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/address.png">
+                <img *ngIf="values.addresspage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/addresshighlight.png">
+
+            </ion-avatar>
+            <h3 *ngIf="values.addresspage" style="color:#ff9c15;font-size:14px">Мой адрес</h3>
+            <h3 *ngIf="!values.addresspage">Мой адрес</h3>
+
+        </ion-item>
+        <ion-item *ngIf="!service.loginStatus" no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable
+            menuClose (click)="login()">
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img *ngIf="!values.loginpage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/login.png">
+                <img *ngIf="values.loginpage" style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/loginhighlight.png">
+
+            </ion-avatar>
+            <h3 *ngIf="!values.loginpage">Войти</h3>
+            <h3 *ngIf="values.loginpage" style="color:#ff9c15;font-size:14px">Войти</h3>
+
+
+        </ion-item>
+        <ion-item *ngIf="service.loginStatus" no-lines style="border-bottom:0.1px solid lightgrey;height:64px" tappable
+            menuClose (click)=" logout()">
+            <ion-avatar style="padding-left: 15px;padding-top:7px" item-start>
+                <img style=" height:22px;width: auto;border-radius:1px " src="assets/imgs/logout.png">
+
+            </ion-avatar>
+            <h3>Выйти</h3>
+
+        </ion-item>
+
+
+
+
+
+
+
+    </ion-content>
 </ion-menu>
-
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

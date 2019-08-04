@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar hideBackButton color="appcolor">
+
+        <button style="padding-bottom: 6px;margin-right:0px;" float-left menuToggle ion-button icon-only light>
+            <img style="height:15px ;width:20px" src="assets/imgs/menu.png">
+
+
+        </button>
+
+
+        <ion-title>
+            <img src="assets/imgs/logo.png" height="34px" width="auto" style="padding-top: 6px;margin-left:-5px">
+        </ion-title>
+
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content style="background:#f5f6fa!important;">
+    <div class="empty">
+    
+       
+        <h4 style="text-align: center;color: #555555;font-size: 42px;line-height: 1;" text-center no-lines>
+            Есть <br>вопросы?
+        </h4>
+        <h5>Напишите нам, если чего-то не хватило или что-то пошло не так</h5>
+    </div>
+    <div (click)="openwhatsapp()"style="height:48px;margin: 2px 16px 16px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);align-content: center;
+              ">
+              <div style="padding-top:8px">
+ <ion-icon name="whatsapp"></ion-icon><span style="color: #ffffff;font-size: 18px;margin-left:12px!important;text-align:center;font-weight: 500;">НАПИСАТЬ В WHATSAPP</span>
+    </div>
+    </div>
+    <div (click)="opentelegram()" style="height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #37aeea;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);">
+            <div style="padding-top:13px">
+ <ion-icon name="telegram"></ion-icon><span style="color: #ffffff;font-size: 18px;margin-left:12px!important;text-align:center;font-weight: 500;">НАПИСАТЬ В TELEGRAM</span>
+    </div>
+    </div>
+    <div (click)="openviber()"  style="height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #984efa;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);">
+             <div style="padding-top:13px">
+ <ion-icon name="viber"></ion-icon><span style="color: #ffffff;font-size: 18px;margin-left:12px!important;text-align:center;font-weight: 500;">НАПИСАТЬ В VIBER</span>
+    </div>
+    </div>
+
+    
+
+</ion-content>
+<ion-footer no-border>
+    <a class="link" (click)="openurl1()">
+    
+        Политика конфиденциальности</a>
+    <br>
+    <a class="link"  (click)="openurl2()">
+        Пользовательское соглашение</a>
+    <br>
+    <a class="link"  (click)="openurl3()">
+        Правила продажи товаров</a>
+</ion-footer>

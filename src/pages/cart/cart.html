@@ -1,0 +1,324 @@
+<ion-header>
+    <ion-navbar hideBackButton color="appcolor">
+        <button (click)="close()" style="margin-top: 2px;margin-left:10px;margin-right:10px;background: #ffffff;box-shadow: none" float-left
+            ion-button icon-only light>
+            <img style="height:auto ;width:19px;background:transparent" src="assets/imgs/bacbutton.png">
+        
+        
+        </button>
+       
+        <ion-title style="margin-top:6px"*ngIf="values.count!=0" text-left>
+            <span *ngIf="values.count==2 || values.count==3 || values.count==4 || values.count==22 || values.count==32 || values.count==23 || values.count==33 || values.count==24 " style="font-size: 24px;color: #ff820d;">Корзина:&nbsp;
+                {{values.count}}&nbsp;товара
+            </span>
+            <span
+                *ngIf="values.count==1 || values.count==21 || values.count==31 || values.count==41 "
+                style="font-size: 24px;color: #ff820d;">Корзина:&nbsp;
+                {{values.count}}&nbsp;товар
+            </span>
+            <span *ngIf="values.count==11 || values.count==12 || values.count==13 || values.count==5 || values.count==6 || values.count==7 || values.count==8 || values.count==9 || values.count==10 || values.count==14 || values.count==15 || values.count==16 || values.count==17 || values.count==18 || values.count==19 || values.count==20 ||    values.count==25 || values.count==26 || values.count==27 || values.count==28 || values.count==29 || values.count==30  "
+                style="font-size: 24px;color: #ff820d;">Корзина:&nbsp;
+                {{values.count}}&nbsp;товаров
+            </span>
+        
+        
+        
+        </ion-title>
+        <ion-title style="margin-top:6px" *ngIf="values.count==0" text-left><span style="font-size: 24px;color: #ff820d;">Корзина
+            </span></ion-title>
+        <!--ion-buttons end>
+
+            <button ion-button icon-only (click)="close()">
+                <img style="height:auto ;width:18px;background:transparent;margin-right:10px;margin-bottom: 12px;margin-top: 8px"
+                    src="assets/imgs/headadd.png">
+
+
+            </button> </ion-buttons-->
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen style="background-color: #f5f6fa;">
+
+
+    <div *ngIf="!cart || loading==1" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+
+    <div class="cart">
+
+
+        <div *ngIf="cart && loading==0">
+            <div class="empty" *ngIf="cart.cart_contents.length == 0 && Service.loginStatus">
+
+                <img style="height:127px;width:auto" src="assets/imgs/cartempty.png">
+                <h4 style="text-align: center;color: #555555;font-size: 42px;line-height: 1;" text-center no-lines>
+                    Корзина <br>пуста
+                </h4>
+                <h5>Отличный повод её наполнить :)</h5>
+            </div>
+            <div class="empty" *ngIf="cart.cart_contents.length == 0 && !Service.loginStatus">
+
+                <img style="height:127px;width:auto" src="assets/imgs/cartempty.png">
+                <img style="height:40px;width:auto;position:absolute;top:18%;left:55%"
+                    src="assets/imgs/cartpercent.png">
+                <h4 style="text-align: center;color: #555555;font-size: 42px;line-height: 1;" text-center no-lines>Успей
+                    забрать
+                    <br>свою скидку</h4>
+                <h5>Скорее выбери что-нибудь и сделай свой первый заказ со скидкой {{Service?.coupondiscount}}&nbsp; ₽</h5>
+            </div>
+            <div *ngIf="cart?.cart_contents ">
+                <div style="margin-bottom:250px!important">
+                    <div *ngFor="let item of cart.cart_contents | keys">
+
+                        <ion-item-divider no-lines  class="cart-items">
+                            <ion-row style="margin-top:8px;border-bottom:1px solid #e4e8ee">
+                                <ion-col col-4>
+                                    <img style="height:auto;width:200px;padding-left:0px;margin-top:-10px!important;margin:auto"
+                                         src="{{item.value.thumb}}">
+
+
+
+                                </ion-col>
+                                <ion-col col-8 class="list_top1">
+                                    <div>
+                                        <h5>{{item.value.name}}</h5>
+                                        <span (click)="delete(item.key )">
+                                            <ion-icon
+                                                style="background:#000000;padding-bottom:4px;position:absolute;top:19px;right:18px"
+                                                name="cartclose">
+                                            </ion-icon>
+                                        </span>
+                                    </div>
+
+
+                                    <div >
+                                        <div class="box">
+                                        <div (click)=" delete1(item.value.product_id,item.value.key)" class="value-button"><img
+                                                src="assets/imgs/cartsubstract.png"></div><span
+                                            style="font-size:18px;margin:0px 8px 0 10px;padding-top:15px;color:#444444">{{item.value.quantity}}</span>
+                                        <div (click)=" updateqty(item.value.product_id,item.value.key,item.value.stock_quantity)" class="value-button"><img
+                                                src="assets/imgs/cartadd.png"></div>
+                                                </div>
+                                        <div class="price">
+                                            <del *ngIf="item.value.sales_price">
+                                                {{item.value.quantity*item.value.regular_price}}&nbsp;₽
+                                            
+                                            </del>
+                                            <h6 *ngIf="item.value.sales_price">
+                                                {{item.value.quantity*item.value.sales_price}}&nbsp;<strong>₽</strong>
+
+                                            </h6>
+                                            <h5 *ngIf="!item.value.sales_price">
+                                                {{item.value.quantity*item.value.regular_price}}&nbsp;<strong>₽</strong>
+                                            
+                                            </h5>
+                                            
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                </ion-col>
+
+                            </ion-row>
+
+
+
+
+
+
+                        </ion-item-divider>
+
+
+                    </div>
+                  
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</ion-content>
+<div (click)=" home()" *ngIf="cart && loading==0 &&  Service.loginStatus">
+    <ion-footer no-border *ngIf="cart.cart_contents.length == 0">
+        <div style="text-align: center;height:48px;margin: 0 16px 32px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+          ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center;font-weight: bold;">КУПИТЬ ЧТО-НИБУДЬ</h5>
+        </div>
+    </ion-footer>
+</div>
+<div (click)=" home()" *ngIf="cart && loading==0 &&  !Service.loginStatus">
+    <ion-footer no-border *ngIf="cart.cart_contents.length == 0">
+        <div style="text-align: center;height:48px;margin: 0 16px 32px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+          ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center;font-weight: bold;">ЗАКАЗАТЬ СО СКИДКОЙ</h5>
+        </div>
+    </ion-footer>
+</div>
+<div *ngIf="cart && loading==0 &&  Service.loginStatus">
+    <ion-footer no-border style="background:#f5f6fa" *ngIf="cart.cart_contents.length != 0">
+        <div style="text-align: center;height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+          ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center;font-weight: bold;">ЗАКАЗАТЬ СЕЙЧАС</h5>
+        </div>
+    </ion-footer>
+</div>
+<div *ngIf="cart && loading==0 &&  !Service.loginStatus">
+    <ion-footer no-border style="background:#f5f6fa" *ngIf="cart.cart_contents.length != 0">
+       
+
+        <div style="text-align: center;height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+          ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center;font-weight: bold;">ЗАКАЗАТЬ СЕЙЧАС</h5>
+        </div>
+    </ion-footer>
+</div>
+<div *ngIf="cart && loading==0 &&  !Service.loginStatus">
+    <ion-footer no-border style="background:#f5f6fa" *ngIf="cart.cart_contents.length != 0">
+
+<ion-item-divider  class="total">
+    <ion-row>
+        <ion-col>
+            <h5 float-left style="color: #2a231a;font-size: 18px;padding-left:15px;padding-top:5px">
+                Итого:</h5>
+
+        </ion-col>
+        <ion-col>
+            <h5  float-right style="color: #2a231a;;font-size: 24px;padding-right:12px">
+                {{cart.cart_totals.total}}&nbsp;₽
+            </h5>
+
+           
+
+        </ion-col>
+    </ion-row>
+</ion-item-divider>
+
+        <div style="  background:#f5f6fa!important;" *ngIf="!values.otpsent" padding>
+
+
+            <ion-row class="login_content">
+               
+             
+              
+<img src="{{Service?.cartpromo}}">
+
+              
+                    <ion-item style="background:transparent;border: 1px solid #d9d9d9;
+                              border-top-left-radius:8px;border-bottom-left-radius:8px;background:#ffffff;width:62%;height:54px" no-lines>
+                        <ion-label stacked style=" font-size:12px; color:grey; margin-bottom:-3px;padding-top:3px;padding-left:8px">введите номер
+                            телефона</ion-label>
+                        <ion-input float-right style="
+                               background:#ffffff;text-align:right;" #phoneNumber class="input" type="tel"
+                            placeholder="      999) 000-00-00" [brmasker]="{mask:'000) 000-00-00', len:15}">
+                        </ion-input>
+                
+                    </ion-item>
+                    <button full class="apply" block type="submit" [disabled]='disableSubmit' (click)="registerPhone()">
+                        ПОЛУЧИТЬ
+                    </button>
+           
+            </ion-row>
+
+        </div>
+        <div style="  background:#f5f6fa!important;" *ngIf="values.otpsent" padding>
+
+
+            <ion-row class="login_content1">
+<img src="{{Service?.cartpromo}}">
+             
+              
+                    <ion-item style="background:transparent;border: 1px solid #d9d9d9;
+                                  border-top-left-radius:8px;border-bottom-left-radius:8px;
+                                 background:#ffffff;height:50px;text-indent: 4px;width:62%;height:54px" no-lines>
+                        <ion-label stacked style=" font-size:12px; color:grey; margin-bottom:-3px;padding-top:3px">введите код из смс
+                        </ion-label>
+                        <ion-input #code class="input" type="tel" placeholder="123456" maxlength="6"></ion-input>
+                
+                    </ion-item>
+                    <button full float-left class="apply" block type="submit" [disabled]='disableSubmit1' (click)="verify()">
+                        ДАЛЕЕ
+                    </button>
+                
+            </ion-row>
+
+        </div>
+    </ion-footer>
+</div>
+<div style="background:#f5f6fa!important;" *ngIf="cart && loading==0 &&  Service.loginStatus">
+    <ion-footer no-border style="background:#f5f6fa"*ngIf="cart.cart_contents.length != 0">
+<ion-item-divider style="background:#f5f6fa!important;" >
+        <ion-row >
+            <ion-col>
+                <h5 float-left style="color: #2a231a;font-size: 18px;padding-left:15px;padding-top:5px">
+                    Итого:</h5>
+
+            </ion-col>
+            <ion-col>
+                <h5 *ngIf="!cart.cart_totals.discount_total" float-right style="color: #2a231a;;font-size: 24px;padding-right:12px">
+                    {{cart.cart_totals.total}}&nbsp;₽
+                </h5>
+                
+                <h5 *ngIf="cart.cart_totals.discount_total " float-right style="color: #2a231a;;font-size: 24px;padding-right:12px">
+                    <del *ngIf="subtotal"style="color: grey;
+                                margin: 0 5px 0 10px;
+                                font-size: 19px;
+                                color:#c2c3c5;">
+                        {{subtotal}}&nbsp;₽</del><span style=" margin: 0 0 0 5px;
+                                font-size:  24px;
+                                font-weight: 500;
+                                color: #ff6b6e">{{cart.cart_totals.total}}&nbsp;₽</span>
+                </h5>
+
+            </ion-col>
+        </ion-row>
+        </ion-item-divider>
+        <ion-item-divider *ngIf="preferredpayment" no-lines style="background:#f5f6fa!important;">
+            <ion-row (click)="checkout1()">
+                <ion-col style="background:#f5f6fa!important;">
+                    <h5 float-left style="color: #2a231a;font-size: 18px;padding-left:15px;padding-top:5px">
+                        {{preferredpayment}}</h5>
+        
+                </ion-col>
+                <ion-col style="background:#f5f6fa!important;margin-right:13px;margin-top:6px">
+                    <ion-icon  float-right style="font-size:20px" name="ios-arrow-forward"></ion-icon>
+        
+                </ion-col>
+            </ion-row>
+        </ion-item-divider>
+
+        <ion-item-divider  no-lines style="background:#f5f6fa!important;">
+            <ion-row (click)="editAddress()">
+                <ion-col col-10 style="background:#f5f6fa!important;">
+                    <h5 float-left style="color: #2a231a;font-size: 18px;padding-left:15px;padding-top:5px;overflow:hidden!important;text-overflow: ellipsis;width:99%">
+                        {{address?.address_2}},кв. &nbsp;{{address?.address_1}} </h5>
+        
+                </ion-col>
+                <ion-col style="background:#f5f6fa!important;margin-right:13px;margin-top:6px">
+                    <ion-icon float-right style="font-size:20px" name="ios-arrow-forward"></ion-icon>
+        
+                </ion-col>
+            </ion-row>
+        </ion-item-divider>
+        <div (click)="checkout()"style="text-align: center;height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+                  ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center">ЗАКАЗАТЬ СЕЙЧАС</h5>
+        </div>
+        </ion-footer>
+        </div>

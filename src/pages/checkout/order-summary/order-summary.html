@@ -1,0 +1,26 @@
+
+<ion-content  style="  background-image: linear-gradient(to bottom right, #ffb81e, #ffb81e,#ff820d)!important;
+">
+    <div *ngIf="showloader" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+    <div *ngIf=" show==2" class="success">
+        <img src="assets/imgs/ordersuccess.png">
+        <h5>Спасибо!</h5>
+        <h4>Будем через 15 минут</h4>
+    </div>
+    
+  
+    
+    
+</ion-content>
+<div *ngIf=" show==2">
+    <ion-footer no-border >
+        <div (click)="close()" style="text-align: center;height:48px;margin: 0 16px 32px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+          ">
+            <h5 style="color: #ffffff;font-size: 20px;padding-top:12px;text-align:center;font-weight: bold;">ОТЛИЧНО</h5>
+        </div>
+    </ion-footer>
+</div>

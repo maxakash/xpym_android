@@ -1,0 +1,41 @@
+<ion-content [ngStyle]="{'background-image': 'url(' + service?.promo + ')'}" class="content">
+
+
+    <div *ngIf="!service.promo" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+    
+    
+    
+    
+    
+    <div *ngIf="service.promo">
+        <img class="badge" src="assets/imgs/promobadge.png">
+        <div style="color: #ffffff;font-size: 16px;font-weight: 900;transform: rotate(-341deg)!important; position:absolute;right:40px;top:400px;z-index:1">СКИДКА</div>
+        <div
+            style="color: #ffffff;font-size:11px;transform: rotate(19deg)!important;line-height: 1.45;opacity: 0.67; position:absolute;right:34px;top:418px;z-index:1">
+        на первый заказ</div>
+        <div 
+            style="color: #ffffff;font-size: 28px;font-weight: 900;transform: rotate(-341deg)!important; position:absolute;right:47px;top:432px;z-index:1">
+            {{service?.coupondiscount}}&nbsp;₽</div>
+
+
+    </div>
+    
+    
+
+</ion-content>
+<ion-footer *ngIf="service.promo" no-border>
+    <div (click)="close()"*ngIf="service?.coupondiscount" style="text-align: center;height:48px;margin: 0 16px 30px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+                      ">
+        <h5 style="color: #ffffff;font-size: 16px;padding-top:14px;text-align:center;font-weight: 900;">ЗАБРАТЬ СКИДКУ
+        </h5>
+    </div>
+    <div (click)="close()"*ngIf="!service?.coupondiscount" style="text-align: center;height:48px;margin: 0 16px 30px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+                      ">
+        <h5 style="color: #ffffff;font-size: 16px;padding-top:14px;text-align:center;font-weight: 900;">КУДА ПРИНЕСТИ?
+        </h5>
+    </div>
+</ion-footer>

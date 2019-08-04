@@ -1,0 +1,119 @@
+<ion-header>
+    <ion-navbar hideBackButton color="appcolor">
+
+        <button style="padding-bottom: 6px;margin-right:0px;" float-left menuToggle ion-button icon-only light>
+            <img style="height:15px ;width:20px" src="assets/imgs/menu.png">
+
+
+        </button>
+
+
+        <ion-title>
+            <img src="assets/imgs/logo.png" height="34px" width="auto" style="padding-top: 6px;margin-left:-5px">
+        </ion-title>
+
+
+    </ion-navbar>
+
+</ion-header>
+<ion-content style="background-color: #f5f6fa;">
+    <div *ngIf="!load" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+    <div *ngIf="load" class="orders_wrapper">
+
+        <div class="empty" *ngIf="orders.length == 0">
+
+            <img style="height:127px;width:auto" src="assets/imgs/cartempty.png">
+            <h4 style="text-align: center;color: #555555;font-size: 42px;line-height: 1;" text-center no-lines>
+                Пока заказов <br>не было
+            </h4>
+            <h5>Отличный повод это исправить и уже заказать себе что-нибудь :)</h5>
+        </div>
+    </div>
+
+
+    <div *ngIf="load && orders.length != 0" class="order-box">
+        <ion-item *ngFor="let item of orders" no-lines style="background: #ffffff">
+            <ion-row *ngIf="item.status != 'on-hold' && item.status != 'pending'"
+                style="border-bottom: solid 1px #e4e8ee;background:#ffffff;margin-top:15px;padding-bottom:15px"
+                (click)="getOrderDetails(item.id)">
+                <ion-col float-left col-6>
+                    <div *ngIf="item.status != 'cancelled'" class="list_top">
+                        <h5
+                            *ngIf=" totalquantity[item.id]==5 || totalquantity[item.id]==6 || totalquantity[item.id]==7 || totalquantity[item.id]==8 || totalquantity[item.id]==9 || totalquantity[item.id]==10 || totalquantity[item.id]==11 || totalquantity[item.id]==12 || totalquantity[item.id]==13 || totalquantity[item.id]==14 || totalquantity[item.id]==15  || totalquantity[item.id]==16 || totalquantity[item.id]==17 || totalquantity[item.id]==18 || totalquantity[item.id]==19 || totalquantity[item.id]==20   || totalquantity[item.id]==25 || totalquantity[item.id]==26 || totalquantity[item.id]==27 || totalquantity[item.id]==28 || totalquantity[item.id]==29 || totalquantity[item.id]==30 ">
+                            {{totalquantity[item.id]}}&nbsp;товаров,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+
+                        <h5
+                            *ngIf="totalquantity[item.id]==2 || totalquantity[item.id]==3 || totalquantity[item.id]==4 || totalquantity[item.id]==22 || totalquantity[item.id]==32 || totalquantity[item.id]==23 || totalquantity[item.id]==33 || totalquantity[item.id]==24 ">
+                            {{totalquantity[item.id]}}&nbsp;товара,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+                        <h5
+                            *ngIf="totalquantity[item.id]==1 || totalquantity[item.id]==21 || totalquantity[item.id]==31 || totalquantity[item.id]==41 ">
+                            {{totalquantity[item.id]}}&nbsp;товар,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+
+
+                        <h4>заказ № {{item.id}}</h4>
+
+                    </div>
+                    <div *ngIf="item.status == 'cancelled'" class="list_top">
+                        <h5 style=" opacity: 0.4;"
+                            *ngIf="totalquantity[item.id]==2 || totalquantity[item.id]==3 || totalquantity[item.id]==4 || totalquantity[item.id]==22 || totalquantity[item.id]==32 || totalquantity[item.id]==23 || totalquantity[item.id]==33 || totalquantity[item.id]==24 ">
+                            {{totalquantity[item.id]}}&nbsp;товара,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+                        <h5 style=" opacity: 0.4;"
+                            *ngIf="totalquantity[item.id]==1 || totalquantity[item.id]==21 || totalquantity[item.id]==31 || totalquantity[item.id]==41 ">
+                            {{totalquantity[item.id]}}&nbsp;товар,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+
+                        <h5 style=" opacity: 0.4;"
+                            *ngIf="totalquantity[item.id]==11 || totalquantity[item.id]==12 || totalquantity[item.id]==13 || totalquantity[item.id]==5 || totalquantity[item.id]==6 || totalquantity[item.id]==7 || totalquantity[item.id]==8 || totalquantity[item.id]==9 || totalquantity[item.id]==10 || totalquantity[item.id]==14 || totalquantity[item.id]==15 || totalquantity[item.id]==16 || totalquantity[item.id]==17 || totalquantity[item.id]==18 || totalquantity[item.id]==19 || totalquantity[item.id]==20">
+                            {{totalquantity[item.id]}}&nbsp;товаров,&nbsp;{{1*item.total}}&nbsp;₽</h5>
+
+
+                        <h4>заказ № &nbsp;{{item.id}}</h4>
+
+                    </div>
+
+                </ion-col>
+                <ion-col style="margin-right:-5px!important" float-right col-6>
+                    <div>
+
+                        <div *ngIf="item.status == 'processing' || item.status == 'completed'" class="order_status">уже
+                            в пути<img src="assets/imgs/progress.png"></div>
+                        <div *ngIf=" item.status == 'delivered'" class="order_status">
+                            выполнено<img src="assets/imgs/completed.png"></div>
+                        <div style="margin-left:5px" *ngIf="item.status == 'cancelled' || item.status == 'failed'"
+                            class="order_status ">
+                            отменено<img src="assets/imgs/cancelled.png"></div>
+
+
+
+                    </div>
+                    <div class="list_top">
+                        <br>
+
+                        <h6 class="date">{{item.date_created | date: 'H:mm, dd MMMM' }}</h6>
+                    </div>
+
+                </ion-col>
+
+            </ion-row>
+
+        </ion-item>
+
+
+
+
+    </div>
+</ion-content>
+<div *ngIf="orders ">
+    <ion-footer no-border *ngIf="orders.length == 0">
+
+
+        <div style="text-align: center;height:48px;margin: 0 16px 16px 16px;border-radius: 8px;background-color: #44c372;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+                  ">
+            <h5 style="color: #ffffff;font-size: 18px;padding-top:13px;text-align:center;font-weight: bold;">КУПИТЬ
+                ЧТО-НИБУДЬ</h5>
+        </div>
+    </ion-footer>
+</div>

@@ -1,18 +1,167 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar hideBackButton color="appcolor">
+
+        <button  (click)="openmenu()" style="margin-top: 9px;margin-right:0px;background:transparent" float-left   icon-only light>
+            <img style="height:15px ;width:20px;" src="assets/imgs/menu.png">
+
+
+        </button>
+
+
+        <ion-title >
+            <img src="assets/imgs/logo.png" height="34px" width="auto" style="padding-top: 6px;margin-left:-5px">
+        </ion-title>
+
+       
+    </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content  >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="crescent"  refreshingText="">
+        </ion-refresher-content>
+    </ion-refresher>
+   
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <div *ngIf="!service.featuredProduct" class="homenone" style="text-align:center">
+        <svg class="spinner" width="32px" height="32px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="4.5" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+  
+
+<div style="background-color: #f5f6fa;" *ngIf="date>=23 || 10>date ">
+    <ion-row class="storeclose">
+        <ion-col col-7>
+       <h5>Увы, мы сейчас
+    не работаем</h5>
+        </ion-col>
+        <ion-col>
+  <img src="assets/imgs/battery.png" >
+        </ion-col>
+            <h6>Приходите попозже, часам к 10 утра</h6>
+
+    </ion-row>
+
+</div>
+
+    <div *ngFor="let children of service?.blocks; let i = index" class="home">
+
+        <!-- Product/Category-->
+        <div>
+            <ion-item no-lines *ngIf="children.title"
+                style="background-color:#f5f6fa;margin-top:-15px;font-size:22px;text-align: left;padding-left:15px;color:#191919;font-weight: 500;padding-top:0px">
+                {{children.title}} </ion-item>
+            <ion-item no-lines *ngIf="!children.title"
+                style="background-color:#e7e8ee;margin-top:15px;width:210px;margin-left:15px;margin-bottom:15px;border-radius: 5px;">
+                {{children.title}} </ion-item>
+
+            <div class="scroll-products">
+                <a class="a" [ngClass] ="{'a1': values?.cart[item.url]}"*ngFor="let item of service?.block[i]">
+                    <div *ngIf="item.title=='product' || item.title=='Product'">
+                        <div *ngIf="values?.cart[item.url]" style="padding-left:8px;margin-top:-8px; z-index: 1;">
+                            <h2 style="font-size: 12px;color: #2a231a;opacity: 0.6;" *ngIf="!item.sale_price">
+                                {{1*item.regular_price}}&nbsp;₽/шт </h2>
+                            <h2 style="font-size: 12px;color: #2a231a;opacity: 0.6;" *ngIf="item.sale_price">
+                                {{1*item.sale_price }}&nbsp;₽/шт </h2>
+                        </div>
+                        <img *ngIf="item.image && !values?.cart[item.url]"
+                            style=" border-top-left-radius: 14px;border-top-right-radius: 14px;" src="{{item.image}}"
+                            (click)="getProduct(item.url)" />
+                        <img *ngIf="item.image && values?.cart[item.url]"
+                            style=" border-top-left-radius: 14px;border-top-right-radius: 14px;height:90px;width:auto;padding:2px;margin-left:auto;margin-right:auto;margin-top:-14px;display: block;"
+                            src="{{item.image}}" (click)="getProduct(item.url)" />
+                        <h5 class="name" *ngIf="item.name && !values?.cart[item.url]">{{item.name}} </h5>
+                        <h5 class="name1" *ngIf="item.name && values?.cart[item.url]">{{item.name}} </h5>
+
+                       
+                        <ion-label>
+                            <span class="price-sale" *ngIf="item.sale_price && !values?.cart[item.url]">{{1*item.sale_price}}&nbsp;₽</span>
+                        
+                            <del *ngIf=" item.sale_price && !values?.cart[item.url]">{{1*item.regular_price }}&nbsp;₽
+                            </del>
+                            <span class="price-regular" *ngIf=" !item.sale_price && !values?.cart[item.url]">{{1*item.regular_price }}&nbsp;₽
+                            </span>
+                            <span class="price-regular1"
+                                *ngIf="!item.sale_price && values?.cart[item.url]">{{values?.cart[item.url]*item.regular_price }}&nbsp;₽
+                            </span>
+                            <span class="price-sale1"
+                                *ngIf="item.sale_price && values?.cart[item.url]">{{values?.cart[item.url]*item.sale_price }}&nbsp;₽
+                            </span>
+                            <del  *ngIf="item.sale_price && values?.cart[item.url]">{{values?.cart[item.url]*item.regular_price}}&nbsp;₽</del>
+                        
+                        
+                        </ion-label>
+                        <img *ngIf="!values?.cart[item.url]" float-right (click)="addToCart1(item.url,item.stock_quantity)"
+                            style="height:50px;width:auto;margin-top:-25px;margin-right:-6px;margin-bottom:5px"
+                            src="assets/imgs/add.png">
+                            <div class="button1">
+                        <div *ngIf="values?.cart[item.url]" class="Rectangle">
+                            <div (click)="delete(item.url,values.cart[item.url])" *ngIf="values?.cart[item.url]" style="margin-left:9px"
+                                 class="value-button"><img
+                                    src="assets/imgs/cartsubstract.png">
+                            </div><span *ngIf="values?.cart[item.url]>=10"
+                                style="font-size:20px;margin:4px 4px 2px 4px!important;padding-top:-5px;text-align: center;">{{values.cart[item.url]}}</span>
+                           
+                                <span *ngIf="9>=values?.cart[item.url]"
+                                    style="font-size:20px;margin:-4px 8px 2px 8px!important;padding-top:-5px;text-align: center;">{{values.cart[item.url]}}</span>
+                            <div (click)="addToCart(item.url,item.stock_quantity,item.sale_price)" *ngIf="values?.cart[item.url]"  class="value-button">
+                                <img src="assets/imgs/cartadd.png"></div>
+                        </div>
+                        </div>
+
+                    </div>
+                    <div class="cat" *ngIf="item.title=='category' || item.title=='Category'"
+                        [ngStyle]="{'background-image': 'url(' + item.image + ')'}">
+                        <div (click)="getCategory(item.url,item.name)" style="height:65px!important">
+                            <h5 class="catname" *ngIf="item.name">{{item.name}} </h5>
+                        </div>
+
+                        
+
+
+                        <img *ngIf="item.image"
+                            style=" border-top-left-radius: 14px;border-top-right-radius: 14px;opacity: 0;"
+                            src="{{item.image}}" (click)="getCategory(item.url,item.name)" />
+                            <img *ngIf="!item.image" style=" border-top-left-radius: 14px;border-top-right-radius: 14px;opacity: 0;"
+                               src="assets/imgs/placeholder.jpg" (click)="getCategory(item.url,item.name)" />
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </a>
+                <div *ngIf="service?.showplaceholder">
+                    <a class="a"*ngFor="let number of [0,1,2]"></a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    <ion-fab style="overflow: visible!important;" right bottom>
+        <button (click)="getCart()" style="overflow: visible!important;background:transparent;">
+            <ion-icon name="cart"></ion-icon>
+            <ion-badge *ngIf="values.count != 0">
+                {{values.count}}
+            </ion-badge>
+        </button>
+    </ion-fab>
+
+
+
+
+
 </ion-content>
